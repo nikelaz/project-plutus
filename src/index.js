@@ -1,3 +1,3 @@
-const Application = require('./application')
+const Application = require('./application');
 
 Application.main();
