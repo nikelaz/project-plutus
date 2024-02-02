@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const { validators, generateInvalidMessage } = require('../helpers/validators');
 
 const { Schema } = mongoose;
 
@@ -6,10 +7,18 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: validators.email,
+      message: generateInvalidMessage('Email'),
+    },
   },
   password: {
     type: String,
     required: true,
+    validate: {
+      validator: validators.password,
+      message: generateInvalidMessage('Password'),
+    },
   },
   firstName: {
     type: String,
@@ -19,10 +28,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+}, {
+  timestamps: true,
 });
 
-const User = mongoose.model('User', userSchema);
+mongoose.model('User', userSchema);
